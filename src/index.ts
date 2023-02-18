@@ -1,13 +1,3 @@
-interface Color {
-  red: number;
-  blue: number;
-  green: number;
-}
-
-const color: Color = {
-  red: 12,
-  blue: 13,
-  green: 14,
-};
-
-export default color;
+export * from "./services";
+export * from "./errors";
+export * from "./middlewares";
