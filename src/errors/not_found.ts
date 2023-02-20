@@ -1,6 +1,6 @@
 import { CustomError } from "./custom_error";
 
-export class UnauthorizedError extends CustomError {
+export class NotFoundError extends CustomError {
   statusCode = 404;
 
   constructor() {
