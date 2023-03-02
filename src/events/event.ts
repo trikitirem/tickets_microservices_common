@@ -1,15 +1,4 @@
-export abstract class BusEvent<T extends object> {
-  abstract type: string;
+export interface Event<T extends object> {
+  type: string;
   payload: T;
-
-  public constructor(payload: T) {
-    this.payload = payload;
-  }
-
-  toJson() {
-    return {
-      type: this.type,
-      payload: this.payload,
-    };
-  }
 }

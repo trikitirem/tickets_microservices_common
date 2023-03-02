@@ -1,9 +1,9 @@
 import amqp from "amqplib";
-import { BusEvent } from "./event";
+import { Event } from "./event";
 
 export class EventBus {
   private static instance: EventBus;
-  private static queue = "queue";
+  private static queue = "tickets";
 
   private channel?: amqp.Channel;
 
@@ -28,9 +28,9 @@ export class EventBus {
     this.channel = channel;
   }
 
-  public async sendEvent<T extends object>(event: BusEvent<T>) {
+  public async sendEvent<T extends object>(event: Event<T>) {
     if (this.channel) {
-      const convertedEvent = JSON.stringify(event.toJson());
+      const convertedEvent = JSON.stringify(event);
       const buffer = Buffer.from(convertedEvent);
 
       this.channel.sendToQueue(EventBus.queue, buffer);
