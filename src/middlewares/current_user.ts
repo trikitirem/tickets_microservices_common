@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { JsonWebToken } from "../services";
+import { verify } from "../services";
 
 type UserPayload = {
   id: string;
@@ -16,13 +16,15 @@ declare global {
 
 export const currentUser = (req: Request, _: Response, next: NextFunction) => {
   try {
-    const token = req.cookies.token;
+    const authorization = req.headers.authorization;
 
-    if (!token) {
+    if (!authorization) {
       return next();
     }
 
-    const payload = JsonWebToken.verify(token) as UserPayload;
+    const token = authorization.replace("Bearer ", "");
+
+    const payload = verify(token) as UserPayload;
     req.currentUser = payload;
   } catch (err) {}
 
