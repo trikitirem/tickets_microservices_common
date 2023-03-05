@@ -13,7 +13,11 @@ export const errorHandler = (
   }
 
   if (err instanceof ZodError) {
-    const errors = err.errors.map(({ message }) => ({ message }));
+    const errors = err.errors.map(({ message, path }) => {
+      const [field] = path;
+
+      return { message, field };
+    });
 
     return res.status(400).send({ errors });
   }
