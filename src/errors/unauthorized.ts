@@ -2,12 +2,13 @@ import { CustomError } from "./custom_error";
 
 export class UnauthorizedError extends CustomError {
   statusCode = 401;
+  private static defaultMessage = "UNAUTHORIZED";
 
-  constructor() {
-    super("User unauthorized");
+  constructor(message?: string) {
+    super(message ?? UnauthorizedError.defaultMessage);
   }
 
   serializeErrors() {
-    return [{ message: "User unauthorized" }];
+    return [{ message: this.message ?? UnauthorizedError.defaultMessage }];
   }
 }

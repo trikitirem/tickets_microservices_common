@@ -2,12 +2,13 @@ import { CustomError } from "./custom_error";
 
 export class ForbiddenError extends CustomError {
   statusCode = 403;
+  private static defaultMessage = "FORBIDDEN";
 
-  constructor() {
-    super("Forbidden");
+  constructor(message?: string) {
+    super(message ?? ForbiddenError.defaultMessage);
   }
 
   serializeErrors() {
-    return [{ message: "Forbidden" }];
+    return [{ message: this.message ?? ForbiddenError.defaultMessage }];
   }
 }
