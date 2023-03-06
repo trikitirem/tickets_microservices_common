@@ -19,7 +19,7 @@ export const errorHandler = (
       return { message, field };
     });
 
-    return res.status(400).send({ errors });
+    return res.status(400).send({ errors, type: "VALIDATION_ERROR" });
   }
 
   res.status(500).send({ errors: [{ message: "Something went wrong!" }] });
