@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { verify } from "../services";
+import { JsonWebToken } from "../services";
 
 type UserPayload = {
   id: string;
@@ -24,9 +24,11 @@ export const currentUser = (req: Request, _: Response, next: NextFunction) => {
 
     const token = authorization.replace("Bearer ", "");
 
-    const payload = verify(token) as UserPayload;
+    const payload = JsonWebToken.verify(token) as UserPayload;
     req.currentUser = payload;
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 
   next();
 };
