@@ -26,6 +26,7 @@ export class EventBus {
     }
 
     this.channel = channel;
+    console.log("Connected to RabbitMQ");
   }
 
   public async sendEvent<T extends object>(event: Event<T>) {
@@ -34,6 +35,7 @@ export class EventBus {
       const buffer = Buffer.from(convertedEvent);
 
       this.channel.sendToQueue(EventBus.queue, buffer);
+      console.log(`Event sent: ${convertedEvent}`);
     }
   }
 }
