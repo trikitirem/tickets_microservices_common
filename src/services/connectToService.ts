@@ -1,8 +1,8 @@
-export const connectToService = async (callback: VoidFunction) => {
+export const connectToService = async (callback: () => Promise<any>) => {
   let retries = 5;
   while (retries) {
     try {
-      callback();
+      await callback();
       break;
     } catch (err) {
       retries -= 1;
