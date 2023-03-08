@@ -1,4 +1,4 @@
-const connectToService = async (callback: VoidFunction) => {
+export const connectToService = async (callback: VoidFunction) => {
   let retries = 5;
   while (retries) {
     try {
