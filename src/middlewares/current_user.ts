@@ -15,20 +15,18 @@ declare global {
 }
 
 export const currentUser = (req: Request, _: Response, next: NextFunction) => {
+  const authorization = req.headers.authorization;
+
+  if (!authorization) {
+    return next();
+  }
+
   try {
-    const authorization = req.headers.authorization;
-
-    if (!authorization) {
-      return next();
-    }
-
     const token = authorization.replace("Bearer ", "");
 
     const payload = JsonWebToken.verify(token) as UserPayload;
     req.currentUser = payload;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (_) {}
 
   next();
 };
