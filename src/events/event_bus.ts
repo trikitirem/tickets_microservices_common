@@ -22,7 +22,7 @@ export class EventBus {
     channel.assertQueue(EventBus.queue, { durable: false });
 
     if (onMessage) {
-      channel.consume(EventBus.queue, onMessage);
+      channel.consume(EventBus.queue, onMessage, { noAck: true });
     }
 
     this.channel = channel;
